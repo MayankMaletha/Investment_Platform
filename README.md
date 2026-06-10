@@ -1,4 +1,4 @@
-# AI Investment Agent — Backend
+# AI Investment Agent 
 
 A production-grade, multi-agent AI investment analysis platform built with FastAPI, LangChain, LangGraph, and modern async Python.
 
