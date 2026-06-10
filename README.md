@@ -2,7 +2,131 @@
 
 A production-grade, multi-agent AI investment analysis platform built with FastAPI, LangChain, LangGraph, and modern async Python.
 
-## Architecture Overview
+
+# 🏗️ System Architecture
+
+```text
+┌─────────────────────┐
+│      Frontend       │
+│  Next.js + React    │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│    FastAPI Backend  │
+│ Authentication/API  │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ LangGraph Workflow  │
+│   Agent Orchestrator│
+└──────────┬──────────┘
+           │
+ ┌─────────┼─────────┬─────────┬─────────┬─────────┐
+ ▼         ▼         ▼         ▼         ▼
+┌──────┐ ┌──────┐ ┌────────┐ ┌───────┐ ┌────────┐
+│Stock │ │ News │ │Sentiment│ │Memory │ │ Risk   │
+│Agent │ │Agent │ │ Agent   │ │ Agent │ │ Agent  │
+└──┬───┘ └──┬───┘ └────┬───┘ └───┬───┘ └────┬───┘
+   │         │          │          │          │
+   └─────────┴──────────┴──────────┴──────────┘
+                           │
+                           ▼
+                 ┌──────────────────┐
+                 │ Strategy Agent   │
+                 │ AI Reasoning     │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ Recommendation   │
+                 │ BUY/HOLD/SELL    │
+                 └──────────────────┘
+```
+
+## Data Layer
+
+```text
+PostgreSQL
+│
+├── Users
+├── Portfolio
+├── Transactions
+├── Watchlist
+└── Chat History
+
+ChromaDB
+│
+├── Conversation Memory
+├── User Preferences
+├── Financial Documents
+└── Embeddings
+```
+
+## External Services
+
+```text
+Stock Market Data
+    └── Finnhub API
+
+Crypto Market Data
+    └── CoinGecko API
+
+Financial News
+    └── NewsAPI / Finnhub News
+
+Sentiment Analysis
+    └── FinBERT
+
+LLM Reasoning
+    └── Gemini / OpenAI
+```
+
+## Request Flow
+
+```text
+User Query
+    │
+    ▼
+FastAPI Endpoint
+    │
+    ▼
+LangGraph Planner
+    │
+    ├── Financial Agent
+    ├── News Agent
+    ├── Sentiment Agent
+    ├── Memory Agent
+    └── Risk Agent
+    │
+    ▼
+Strategy Agent
+    │
+    ▼
+LLM Reasoning
+    │
+    ▼
+Investment Recommendation
+    │
+    ▼
+Store Memory + Return Response
+```
+
+## Key Features
+
+- Multi-Agent AI Architecture
+- LangChain Tool Calling
+- LangGraph Workflow Orchestration
+- RAG for Financial Documents
+- Portfolio & Risk Analysis
+- Real-Time Market Monitoring
+- Long-Term Memory with Vector Database
+- Explainable AI Recommendations
+- WebSocket-Based Live Updates
+- Production-Ready FastAPI Backend
+
+## Backend Architecture Overview
 
 ```
 User Request
