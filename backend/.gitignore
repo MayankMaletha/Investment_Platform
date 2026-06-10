@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+*.whl
+
+# Env
+.env
+.env.*
+!.env.example
+*.env
+
+# Virtual envs
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Docker
+*.override.yml
+
+# Data
+chroma_data/
+postgres_data/
+
+# Model cache (HuggingFace)
+.cache/
+models/
