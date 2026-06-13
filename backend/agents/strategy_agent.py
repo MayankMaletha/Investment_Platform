@@ -52,14 +52,24 @@ class StrategyAgent:
 
     def _get_llm(self):
         try:
-            from langchain_openai import ChatOpenAI
-            return ChatOpenAI(
-                model=settings.OPENAI_MODEL,
-                temperature=0.1,
-                api_key=settings.OPENAI_API_KEY,
-            )
+            if settings.OPENAI_API_KEY:
+                from langchain_openai import ChatOpenAI
+                return ChatOpenAI(
+                    model=settings.OPENAI_MODEL,
+                    temperature=0.1,
+                    api_key=settings.OPENAI_API_KEY,
+                )
+            elif settings.GROQ_API_KEY:
+                from langchain_groq import ChatGroq
+                return ChatGroq(
+                    model=settings.GROQ_MODEL,
+                    temperature=0.1,
+                    api_key=settings.GROQ_API_KEY,
+                )
+            return None
         except Exception:
             return None
+
 
     async def run(
         self,

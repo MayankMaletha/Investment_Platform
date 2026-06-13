@@ -45,16 +45,27 @@ class ChatService:
     def _build_agent(self):
         """Build a LangChain tool-calling agent with financial tools."""
         try:
-            from langchain_openai import ChatOpenAI
             from langchain.agents import create_tool_calling_agent, AgentExecutor
             from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
-            llm = ChatOpenAI(
-                model=settings.OPENAI_MODEL,
-                temperature=settings.OPENAI_TEMPERATURE,
-                api_key=settings.OPENAI_API_KEY,
-                streaming=False,
-            )
+            if settings.OPENAI_API_KEY:
+                from langchain_openai import ChatOpenAI
+                llm = ChatOpenAI(
+                    model=settings.OPENAI_MODEL,
+                    temperature=0.3,
+                    api_key=settings.OPENAI_API_KEY,
+                    streaming=False,
+                )
+            elif settings.GROQ_API_KEY:
+                from langchain_groq import ChatGroq
+                llm = ChatGroq(
+                    model=settings.GROQ_MODEL,
+                    temperature=0.3,
+                    api_key=settings.GROQ_API_KEY,
+                )
+            else:
+                raise ValueError("No LLM API keys provided (OpenAI or Groq)")
+
 
             prompt = ChatPromptTemplate.from_messages([
                 ("system", CHAT_SYSTEM_PROMPT),
@@ -151,9 +162,16 @@ class ChatService:
     async def _fallback_response(self, message: str) -> str:
         """Simple LLM response when agent is unavailable."""
         try:
-            from langchain_openai import ChatOpenAI
             from langchain_core.messages import HumanMessage, SystemMessage
-            llm = ChatOpenAI(model=settings.OPENAI_MODEL, temperature=0.3, api_key=settings.OPENAI_API_KEY)
+            if settings.OPENAI_API_KEY:
+                from langchain_openai import ChatOpenAI
+                llm = ChatOpenAI(model=settings.OPENAI_MODEL, temperature=0.3, api_key=settings.OPENAI_API_KEY)
+            elif settings.GROQ_API_KEY:
+                from langchain_groq import ChatGroq
+                llm = ChatGroq(model=settings.GROQ_MODEL, temperature=0.3, api_key=settings.GROQ_API_KEY)
+            else:
+                raise ValueError("No LLM API keys provided (OpenAI or Groq)")
+
             loop = asyncio.get_event_loop()
             response = await loop.run_in_executor(
                 None,
@@ -169,3 +187,4 @@ class ChatService:
                 f"Please try again or use the /analyze-stock endpoint for detailed analysis. "
                 f"Error: {str(e)}"
             )
+

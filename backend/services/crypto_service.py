@@ -134,10 +134,15 @@ class CryptoService:
                 coins = []
                 for c in data:
                     coins.append({
+                        "id": c.get("id"),
                         "rank": c.get("market_cap_rank"),
                         "symbol": c.get("symbol", "").upper(),
                         "name": c.get("name"),
+                        "image": c.get("image"),
                         "price": c.get("current_price"),
+                        "current_price": c.get("current_price"),
+                        "price_change_percentage_24h": c.get("price_change_percentage_24h"),
+                        "price_change_24h": c.get("price_change_24h"),
                         "market_cap": c.get("market_cap"),
                         "volume_24h": c.get("total_volume"),
                         "change_24h": c.get("price_change_percentage_24h"),

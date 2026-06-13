@@ -1,0 +1,40 @@
+{
+  "name": "ai-investment-agent",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.51.1",
+    "@tanstack/react-router": "^1.45.3",
+    "axios": "^1.7.2",
+    "framer-motion": "^11.3.8",
+    "lucide-react": "^0.408.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.52.1",
+    "react-markdown": "^9.0.1",
+    "recharts": "^2.12.7",
+    "zustand": "^4.5.4",
+    "zod": "^3.23.8",
+    "@hookform/resolvers": "^3.9.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.4.0",
+    "react-hot-toast": "^2.4.1",
+    "date-fns": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4"
+  }
+}
